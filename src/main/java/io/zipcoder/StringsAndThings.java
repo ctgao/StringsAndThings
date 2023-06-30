@@ -15,7 +15,24 @@ public class StringsAndThings {
      *           countYZ("day fyyyz"); // Should return 2
      */
     public Integer countYZ(String input){
-        return null;
+        int counter = 0;
+        char curChar;
+
+        for(int i = 0; i < input.length(); i++){
+            curChar = input.charAt(i);
+            // current character must be a 'z' or a 'y'
+            if(curChar == 'z' || curChar == 'Z' || curChar == 'Y' || curChar == 'y'){
+                // next character must not be a letter
+                if(i+1 < input.length() && !Character.isLetter(input.charAt(i + 1))){
+                    counter++;
+                }
+                else if(i+1 >= input.length()){
+                    counter++;
+                }
+            }
+        }
+
+        return counter;
     }
 
     /**
@@ -28,7 +45,19 @@ public class StringsAndThings {
      *           removeString("Hello there", "x") // Should return "Hello there"
      */
     public String removeString(String base, String remove){
-        return null;
+        int curIndex;
+        while(true) {
+            curIndex = base.indexOf(remove);
+            // not sure if this works - i'll have to test it
+            // jk it really doesn't work
+            // base.replaceAll("", remove);
+            if(curIndex == -1){
+                break;
+            }
+
+            base = base.substring(0, curIndex) + base.substring(curIndex + remove.length());
+        }
+        return base;
     }
 
     /**
@@ -40,7 +69,24 @@ public class StringsAndThings {
      *           containsEqualNumberOfIsAndNot("noisxxnotyynotxisi") // Should return true
      */
     public Boolean containsEqualNumberOfIsAndNot(String input){
-        return null;
+        int countNot = 0;
+        int countIs = 0;
+        int indexNot = -1;
+        int indexIs = -1;
+
+        do {
+            indexNot = input.indexOf("not", indexNot+1);
+            indexIs = input.indexOf("is", indexIs+1);
+
+            if(indexNot != -1){
+                countNot++;
+            }
+            if(indexIs != -1){
+                countIs++;
+            }
+        } while(indexNot != -1 && indexIs != -1);
+
+        return countNot == countIs;
     }
 
     /**
@@ -51,7 +97,24 @@ public class StringsAndThings {
      *           gHappy("xxggyygxx") // Should return  false
      */
     public Boolean gIsHappy(String input){
-        return null;
+        int gIndex = 0;
+        do {
+            // first find the 'g'
+            gIndex = input.indexOf('g', gIndex + 1);
+            //make sure no exceptions
+            if(gIndex != -1){
+                if(gIndex - 1 > 0 && input.charAt(gIndex-1) == 'g'){
+                    // if you found a 'g' to the left
+                    continue;
+                }
+                if(gIndex + 1 < input.length() && input.charAt(gIndex+1) == 'g'){
+                    // if you found a 'g' to the right
+                    continue;
+                }
+                return false;
+            }
+        } while(gIndex != -1);
+        return true;
     }
 
 
@@ -63,6 +126,15 @@ public class StringsAndThings {
      *            countTriple("a") // Should return 0
      */
     public Integer countTriple(String input){
-        return null;
+        int i = 0;
+        int count = 0;
+        while(i < input.length()-2){
+            if(input.charAt(i) == input.charAt(i+1) && input.charAt(i) == input.charAt(i+2)){
+                count++;
+                i += 1;
+            }
+            i++;
+        }
+        return count;
     }
 }
